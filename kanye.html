@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kanye.rest</title>
+</head>
+<body>
+
+    <div>
+        <div id="kanye">
+
+        </div>
+        <button onclick="load()" >change me</button>
+    </div>
+
+    <script>
+        
+        const load=()=>{
+            fetch('https://api.kanye.rest/')
+            .then(res=>res.json())
+            .then(data=>display(data))
+        }
+        
+        const display = data=>{
+            document.getElementById('kanye').innerText=data.quote;
+            console.log(data.quote)
+        }
+
+    </script>
+</body>
+</html>

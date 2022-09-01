@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>randomuser.me</title>
+    <style>
+        .dibba{
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>i wann be the world feamous lover </h1>
+    <div>
+        <section id="lover">
+
+        </section>
+    </div>
+    
+    <script>
+        console.log("okay")
+
+        const loadData=()=>{
+            fetch('https://randomuser.me/api/?results=10')
+            .then(res=>res.json())
+            .then(data=>display(data.results))
+        }
+
+      
+
+        const display=data=>{
+            console.log(data);
+           const lover=document.getElementById('lover');
+            for(const one of data){
+                
+                const div=document.createElement('div');
+                div.classList.add('dibba');
+                div.innerHTML=`
+                 <h3> user name : ${one.name.title} ${one.name.first}  </h3>
+                 <h4> email id   : ${one.email}</h3>
+                 <h5> gender id  : ${one.gender}</h5>
+                `;
+                lover.appendChild(div);
+            }
+        }
+        loadData()
+    </script>
+</body>
+</html>

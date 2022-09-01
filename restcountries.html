@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>restcountries</title>
+    <style>
+        #country{
+            
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+           
+            gap: 20px;
+        }
+        .desh{
+            border: 2px solid red;
+            margin: 5px 5px;
+            padding: 10px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div>
+        <h1>country deails ==== </h1>
+        <div id="c-details">
+
+        </div>
+    </div>
+
+    <div>
+        <h1>explore all countries</h1>
+    </div>
+    <main id="container">
+        <section id="country">
+        
+        
+        </section>
+        
+    </main>
+
+    <script>
+        const loadCoutries=()=>{
+            fetch('https://restcountries.com/v3.1/all')
+            .then(res=>res.json())
+            .then(data=>display(data))
+        }
+        
+        const display=data=>{
+           
+            const countries=document.getElementById('country');
+            data.forEach(desh => {
+                console.log(desh);
+                const deshDiv=document.createElement('div');
+                deshDiv.classList.add('desh');
+                
+                deshDiv.innerHTML = `
+
+                <h4> counntry  =  ${desh.name.common} <h4>
+                    <p> capital  : ${desh.capital ? desh.capital[0] : 'No capital'};
+                    </p>
+                    <button onclick="details('${desh.cca2}')"> details </button>
+                `;
+
+
+                countries.appendChild(deshDiv);
+            });
+
+           
+        }
+
+        function details(code){
+                console.log("working ",code);
+                const url=`https://restcountries.com/v3.1/alpha/${code}`;
+                console.log(url);
+                fetch(`https://restcountries.com/v3.1/alpha/${code}`)
+                .then(res=>res.json())
+                .then(data=>disp(data[0]));
+            }
+
+            const disp=cntry=>{
+                console.log(cntry);
+                const cdtails=document.getElementById('c-details');
+                cdtails.innerHTML=`
+                <h2>Details : ${cntry.name.common} </h2>
+                    <img src="${cntry.flags.png}">
+                `
+            }
+        loadCoutries()
+    </script>
+    
+</body>
+</html>
